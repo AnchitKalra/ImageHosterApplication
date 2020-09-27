@@ -1,5 +1,6 @@
 package ImageHoster.controller;
 
+import ImageHoster.model.Comment;
 import ImageHoster.model.Image;
 import ImageHoster.model.Tag;
 import ImageHoster.model.User;
@@ -49,8 +50,10 @@ public class ImageController {
     @RequestMapping("/images/{id}/{title}")
     public String showImage(@PathVariable("id") Integer id, Model model) {
         Image image = imageService.getImage(id);
+        List<Comment> comments = image.getComments();
         model.addAttribute("image", image);
         model.addAttribute("tags", image.getTags());
+        model.addAttribute("comments", comments);
         return "images/image";
     }
 
@@ -105,8 +108,10 @@ public class ImageController {
             return "images/edit";
         }
         else {
+            List<Comment> comments = image.getComments();
             model.addAttribute("editError", true);
             model.addAttribute("tags", image.getTags());
+            model.addAttribute("comments", comments);
             return "images/image";
         }
     }
@@ -159,9 +164,10 @@ public class ImageController {
             return "redirect:/images";
         }
         else {
-
+             List<Comment> comments = image.getComments();
             model.addAttribute("deleteError", true);
             model.addAttribute("image", image);
+            model.addAttribute("comments", comments);
             return "images/image";
         }
     }
