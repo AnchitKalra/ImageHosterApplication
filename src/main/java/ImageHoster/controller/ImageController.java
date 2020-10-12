@@ -109,7 +109,7 @@ public class ImageController {
         }
         else {
             List<Comment> comments = image.getComments();
-            model.addAttribute("editError", true);
+            model.addAttribute("editError", "Only the owner of the image can edit the image");
             model.addAttribute("tags", image.getTags());
             model.addAttribute("comments", comments);
             return "images/image";
@@ -165,7 +165,7 @@ public class ImageController {
         }
         else {
              List<Comment> comments = image.getComments();
-            model.addAttribute("deleteError", true);
+            model.addAttribute("deleteError", "Only the owner of the image can delete the image");
             model.addAttribute("image", image);
             model.addAttribute("comments", comments);
             return "images/image";
@@ -209,8 +209,10 @@ public class ImageController {
             tagString.append(tags.get(i).getName()).append(",");
         }
 
-        Tag lastTag = tags.get(tags.size() - 1);
-        tagString.append(lastTag.getName());
+        if(!tags.isEmpty()) {
+            Tag lastTag = tags.get(tags.size() - 1);
+            tagString.append(lastTag.getName());
+        }
 
         return tagString.toString();
     }

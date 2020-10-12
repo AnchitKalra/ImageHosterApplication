@@ -58,7 +58,7 @@ public class UserController {
         }
         if(countAlphabets >=1 && countDigits >=1 && countSpecial >=1) {
             userService.registerUser(user);
-            return "redirect:/users/login";
+            return "users/login";
         }
         else {
             String error = "Password must contain atleast 1 alphabet, 1 number & 1 special character";
